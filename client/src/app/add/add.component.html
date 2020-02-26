@@ -1,0 +1,13 @@
+<label for="file">Attach PDF file</label>
+<input type="file" class="form-control" accept=".pdf" name="file" ngModel (change)="handleFileInput($event.target.files)">
+<form [formGroup]="form" >
+
+  <div class="form-group">
+    <select formControlName="rad" placeholder="Enter Rad">
+      <option *ngFor="let rad of rads" value="{{rad.id}}">{{rad.naziv}}</option>
+   
+    </select>
+  </div>
+  <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+</form>
+

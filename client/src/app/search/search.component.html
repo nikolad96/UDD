@@ -1,0 +1,151 @@
+
+<form [formGroup]="form" *ngIf="flag=='search'">
+
+  <div class="form-group">
+    <label for="vrednost">Vrednost:</label>
+    <input formControlName="vrednost" type="text" class="form-control" id="vrednost" required placeholder="Enter Vrednost">
+  </div>
+  <div class="form-group">
+  <select formControlName="polje" placeholder="Enter Polje">
+    <option value="naziv">Naziv</option>
+    <option value="oblast">Oblast</option>
+    <option value="abstrakt">Abstrakt</option>
+    <option value="autor">Autor</option>
+    <option value="kljucne">Kljucne</option>
+  </select>
+</div>
+
+  <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+
+<form [formGroup]="form1" *ngIf="flag=='multiSearch'" >
+
+  <div class="form-group">
+    <label for="Naziv">Naziv:</label>
+    <input formControlName="Naziv" type="text" class="form-control" id="Naziv" required placeholder="Enter Naziv">
+  </div>
+  <div class="form-group">
+    <label for="Oblast">Oblast:</label>
+    <input formControlName="Oblast" type="text" class="form-control" id="Oblast" required placeholder="Enter Oblast">
+  </div>
+  <div class="form-group">
+    <label for="Abstrakt">Abstrakt:</label>
+    <input formControlName="Abstrakt" type="text" class="form-control" id="Abstrakt" required placeholder="Enter Abstrakt">
+  </div>
+  <div class="form-group">
+    <label for="Autor">Autor:</label>
+    <input formControlName="Autor" type="text" class="form-control" id="Autor" required placeholder="Enter Autor">
+  </div>
+  <div class="form-group">
+    <label for="Kljucne">Autor:</label>
+    <input formControlName="Kljucne" type="text" class="form-control" id="Kljucne" required placeholder="Enter Kljucne">
+  </div>
+  <div class="form-group">
+  <select formControlName="tip" required placeholder="Enter Tip">
+    <option value="and">Must</option>
+    <option value="or">Should</option>
+  </select>
+  </div>
+
+
+
+  <button type="submit" (click)="onSubmitMulti()" class="btn btn-primary">Submit</button>
+</form>
+
+<form [formGroup]="form2" *ngIf="flag=='content'">
+
+  <div class="form-group">
+    <label for="vrednost">Vrednost:</label>
+    <input formControlName="vrednost" type="text" class="form-control" id="vrednost" required placeholder="Enter Vrednost">
+  </div>
+
+
+  <button type="submit" (click)="onSubmitContent()" class="btn btn-primary">Submit</button>
+</form>
+
+<form [formGroup]="form3" *ngIf="flag=='moreLikeThis'">
+
+  <div class="form-group">
+    <label for="vrednost">Rad:</label>
+    <select formControlName="vrednost" id="vrednost" placeholder="Enter Rad">
+      <option *ngFor="let rad of allRads" value="{{rad.id}}">{{rad.naziv}}</option>
+   
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="min">Min:</label>
+    <input formControlName="min" type="number" class="form-control" id="min" required placeholder="Enter min">
+  </div>
+  <div class="form-group">
+    <label for="max">Max:</label>
+    <input formControlName="max" type="number" class="form-control" id="max" required placeholder="Enter max">
+  </div>
+  
+
+  <button type="submit" (click)="onSubmitMore()" class="btn btn-primary">Submit</button>
+</form>
+
+<form [formGroup]="form4"  *ngIf="flag == 'geoSearch'">
+
+  <div class="form-group">
+    <select formControlName="rad" placeholder="Enter Rad">
+      <option *ngFor="let rad of allRads" value="{{rad.id}}">{{rad.naziv}}</option>
+   
+    </select>
+  </div>
+  <button type="submit" (click)="onSubmitGeo()" class="btn btn-primary">Submit</button>
+</form>
+
+<br>
+<br>
+<button (click)="normal()">Normal</button>
+<button (click)="multiField()">MultiField</button>
+<button (click)="geo()">GeoSearch</button>
+<button (click)="moreLikeThis()">MoreLikeThis</button>
+<button (click)="content()">Content</button>
+<table *ngIf="flag != 'geoSearch'">
+
+  <thead >
+  <tr>
+    <th>Naziv</th>
+    <th>Oblast</th>
+    <th>Abstrakt</th>
+    <th>Autor</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let r of rads">
+
+  <tr >
+    <td >{{r.naziv}}</td>
+    <td >{{r.oblast}}</td>
+    <td >{{r.abstrakt}}</td>
+    <td >{{r.autor}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<table *ngIf="flag == 'geoSearch'">
+
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Naziv</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let rec of recenzents">
+
+  <tr >
+    <td >{{rec.id}}</td>
+    <td >{{rec.ime}}</td>
+    <td >{{rec.location.lat}}</td>
+    <td >{{rec.location.lon}}</td>
+  </tr>
+  </tbody>
+</table>
